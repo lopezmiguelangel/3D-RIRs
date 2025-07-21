@@ -94,29 +94,25 @@ The conversión outputs the following:
 From the B-format channels, the acoustic intensity vector is computed as follows:
 
 - A low-pass filter (cutoff ≈ 5 kHz) is applied to the W, X, Y, Z signals to remove high-frequency noise. This is a limitation of this kind of microphone array.
-- The acoustic intensity components along each axis are obtained by multiplying the omnidirectional pressure channel **W** with each directional channel:
+- The acoustic intensity components along each axis are obtained by multiplying the omnidirectional pressure channel W with each directional channel:
 
-\[
-I_x = \text{smoothed}(W \times X), \quad
-I_y = \text{smoothed}(W \times Y), \quad
-I_z = \text{smoothed}(W \times Z)
-\]
+    Ix = smoothed(W * X)  
+    Iy = smoothed(W * Y)  
+    Iz = smoothed(W * Z)
 
 - Smoothing is performed using a Hamming window over a user-defined integration time to reduce fluctuations.
-- The intensity magnitude \(I\) is calculated as the Euclidean norm:
 
-\[
-I = \sqrt{I_x^2 + I_y^2 + I_z^2}
-\]
+- The intensity magnitude I is calculated as the Euclidean norm:
 
-- Azimuth (\(\theta\)) and elevation (\(\phi\)) angles of the intensity vector are calculated via:
+    I = sqrt(Ix² + Iy² + Iz²)
 
-\[
-\theta = \arctan2(I_y, I_x), \quad
-\phi = \arcsin\left(\frac{I_z}{I}\right)
-\]
+- Azimuth (θ) and elevation (φ) angles of the intensity vector are calculated via:
+
+    θ = arctangent2(Iy, Ix)  
+    φ = arcsin(Iz / I)
 
 These angles describe the direction of the energy flow in 3D space.
+
 - The intensity magnitude and angles are truncated to a 10-second window centered around the maximum intensity peak to focus on the direct sound and early reflections.
 
 ### 4. Peak Detection on Intensity Envelope
@@ -124,23 +120,52 @@ These angles describe the direction of the energy flow in 3D space.
 - Peaks in the acoustic intensity magnitude are detected to identify significant acoustic events (e.g., reflections).
 - The time axis is recalibrated relative to the first detected peak, enabling consistent temporal reference for further analysis.
 
+## UI
+
+### Input Audio
+
 The program prompts the user to input the path to the audio files.
 For clarity, the expected filenames are specified, as well as the usual wire colors associated with each channel on the microphone connector (following typical manufacturer conventions).
 
 <div style="text-align: center;"> <img src="./figures/audioTab.png" alt="Audio Tab" style="max-width: 600px; width: 100%; height: auto; border: 1px solid #ccc; border-radius: 8px; box-shadow: 2px 2px 6px rgba(0,0,0,0.1);" /> </div>
-Floor plan tab
+
+### Floor plan tab
+
 The user must provide:
+- The path to the floor plan image (.jpg format),
+- The dimensions of the room (in meters),
+- The location of the measurement microphone within the floor plan.
+- Additionally, this section includes a menu to configure:
+  - The integration time for the energy decay calculation,
+  - The threshold value (in dB) used to filter out signals that are significantly lower than the direct sound (to exclude noise or reflections of low intensity).
 
-The path to the floor plan image (.jpg format),
+<div style="text-align: center;"> <img src="./figures/floorTab.png" alt="Floor Tab" style="max-width: 600px; width: 100%; height: auto; border: 1px solid #ccc; border-radius: 8px; box-shadow: 2px 2px 6px rgba(0,0,0,0.1);" /> </div>
 
-The dimensions of the room (in meters),
+### Outputs
 
-The location of the measurement microphone within the floor plan.
+The output files include the following:
+- A-Format RIRs:
+  - BLD_IR.wav
+  - BRU_IR.wav
+  - FLU_IR.wav
+  - FRD_IR.wav
+- B-Format RIRs:
+  - W_IR.wav
+  - X_IR.wav
+  - Y_IR.wav
+  - Z_IR.wav
+- Acoustic analysis of the W channel as .png, .xlsx and .csv:
+<div style="text-align: center;"> <img src="./figures/Acoustics.png" alt="Acoustics" style="max-width: 600px; width: 100%; height: auto; border: 1px solid #ccc; border-radius: 8px; box-shadow: 2px 2px 6px rgba(0,0,0,0.1);" /> </div>
 
-Additionally, this section includes a menu to configure:
+- floorplan_with_overlay.png
+<div style="text-align: center;"> <img src="./figures/floorplan_with_overlay.png" alt="Floorplan with overlay" style="max-width: 600px; width: 100%; height: auto; border: 1px solid #ccc; border-radius: 8px; box-shadow: 2px 2px 6px rgba(0,0,0,0.1);" /> </div>
 
-The integration time for the energy decay calculation,
+- intensity_table.csv, for further analysis.
 
-The threshold value (in dB) used to filter out signals that are significantly lower than the direct sound (to exclude noise or reflections of low intensity).
-
-
+- Views of the 3D hedgehog plot and an interactive object (not exportable):
+  - top_view_overlay.png
+  - view_front.png
+  - view_isometric.png
+  - view_side.png
+  - view_top.png
+<div style="text-align: center;"> <img src="./figures/interactiveOutput.png" alt="Interactive object" style="max-width: 600px; width: 100%; height: auto; border: 1px solid #ccc; border-radius: 8px; box-shadow: 2px 2px 6px rgba(0,0,0,0.1);" /> </div>
