@@ -16,7 +16,7 @@ Below are the plots for n = 3, 4, 5, and 7 cardioid patterns, uniformly rotated 
               box-shadow: 2px 2px 6px rgba(0,0,0,0.1);" />
 </div>
 
-The applies for a 3D pattern. 
+The same applies for a 3D pattern. 
 
 ## Program Overview
 
