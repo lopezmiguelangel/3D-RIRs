@@ -168,4 +168,4 @@ The output files include the following:
   - view_isometric.png
   - view_side.png
   - view_top.png
-<div style="text-align: center;"> <img src="./figures/interactiveOutput.png" alt="Interactive object" style="max-width: 600px; width: 100%; height: auto; border: 1px solid #ccc; border-radius: 8px; box-shadow: 2px 2px 6px rgba(0,0,0,0.1);" /> </div>
+<div style="text-align: center;"> <img src="./figures/isometric.png" alt="Interactive object" style="max-width: 600px; width: 100%; height: auto; border: 1px solid #ccc; border-radius: 8px; box-shadow: 2px 2px 6px rgba(0,0,0,0.1);" /> </div>
